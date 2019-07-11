@@ -5,6 +5,22 @@
         <AssemblyName>LightestNight.System.Configuration</AssemblyName>
         <RootNamespace>LightestNight.System.Configuration</RootNamespace>
         <LangVersion>latest</LangVersion>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>LightestNight.System.Configuration</PackageId>
+        <Authors>James Woodley</Authors>
+        <Company>Lightest Night Ltd</Company>
+        <Title>Lightest Night :: System :: Configuration</Title>
+        <Description>Facilitates binding of Configuration Files into POCO objects. This then allows the config to be used within other classes via dependency injection etc</Description>
+        <PackageTags>lightestnight;system;configuration;config</PackageTags>
+        <PackageVersion>1.0.0</PackageVersion>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <InformationalVersion>1.0.0</InformationalVersion>
+        <PackageIconUrl>https://www.gravatar.com/avatar/01d9ae6081c5243ef46b38dc4056f9d8</PackageIconUrl>
+        <RepositoryUrl>https://github.com/lightestnight/system.serviceresolution</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
