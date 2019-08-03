@@ -6,17 +6,11 @@ namespace LightestNight.System.Configuration.Tests
     public class ConfigSectionNameAttributeTests
     {
         [ConfigSectionName("MyName")]
-        private class TestClassA
-        {
-        }
+        private class TestClassA {}
 
-        private class TestClassB
-        {
-        }
+        private class TestClassB {}
 
-        private class TestClassConfig
-        {
-        }
+        private class TestClassConfig {}
 
         [Fact]
         public void Should_Read_From_Attribute()
