@@ -6,7 +6,7 @@ namespace LightestNight.System.Configuration
 {
     public class ConfigurationManager
     {
-        private readonly IConfigurationRoot _configuration;
+        public readonly IConfigurationRoot Configuration;
 
         public ConfigurationManager(IConfigurationBuilder configurationBuilder)
         {
@@ -25,7 +25,7 @@ namespace LightestNight.System.Configuration
             // Add any environment variables there may be
             builder.AddEnvironmentVariables();
 
-            _configuration = builder.Build();
+            Configuration = builder.Build();
         }
 
         public TConfig Bind<TConfig>(string sectionName = default)
@@ -34,17 +34,17 @@ namespace LightestNight.System.Configuration
             var jsonSectionName = (sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TConfig))) ?? typeof(TConfig).Name;
             var bind = new TConfig();
 
-            _configuration.GetSection(jsonSectionName).Bind(bind);
+            Configuration.GetSection(jsonSectionName).Bind(bind);
 
             return bind;
         }
 
         public string GetConnectionString(string name)
-            => _configuration.GetConnectionString(name);
+            => Configuration.GetConnectionString(name);
 
         public TSetting GetSetting<TSetting>(string name, TSetting defaultValue = default)
         {
-            var result = _configuration[name];
+            var result = Configuration[name];
 
             if (string.IsNullOrWhiteSpace(result))
                 return defaultValue;
