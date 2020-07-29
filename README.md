@@ -3,6 +3,9 @@
 
 Facilitates binding of Configuration Files into POCO objects. This then allows the config to be used within other classes via dependency injection etc
 
+### Build Status
+![](https://github.com/lightest-night/system.configuration/workflows/CI/badge.svg)
+![](https://github.com/lightest-night/system.configuration/workflows/Release/badge.svg)
 #### How To Use
 ##### Registration
 * Asp.Net Standard/Core Dependency Injection
