@@ -5,11 +5,14 @@ on:
     branches:
       - master
       - develop
-        
+      - hotfix/**
+
 jobs:
   build:
-    name: Build, run tests and package artifacts
+    name: Build and test
     runs-on: ubuntu-latest
+    outputs:
+      packageVersion: ${{ steps.gitversion.outputs.nuGetVersion }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,22 +27,32 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.2
       - name: Build
         run: dotnet build -c Release
-      - name: Test
+      - name: Unit Test
         run: dotnet test -c Release --no-build
+
+  package:
+    name: Package ready for deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Package
-        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }} --no-build
+        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ needs.build.outputs.packageVersion }}
       - name: Store nuget package as artifact
         uses: actions/upload-artifact@v2
         with:
           name: packages
           path: ./packages/*.nupkg
-          
+
   deploy:
     name: Deploy to Nuget
-    needs: build
+    needs: package
     runs-on: ubuntu-latest
     steps:
-      - name: Download package from build
+      - name: Download package
         uses: actions/download-artifact@v2
         with:
           name: packages
