@@ -20,7 +20,7 @@ namespace LightestNight.System.Configuration
                 .AddXmlFile("app.config", true, true);
             
             // If any, add the environment files
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
             if (!string.IsNullOrEmpty(environment))
                 builder.AddJsonFile($"appsettings.{environment}.json", true, true);
             
