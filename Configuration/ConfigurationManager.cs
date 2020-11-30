@@ -33,7 +33,7 @@ namespace LightestNight.System.Configuration
         public TConfig Bind<TConfig>(string? sectionName = null)
             where TConfig : class, new()
         {
-            var jsonSectionName = (sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TConfig))) ?? typeof(TConfig).Name;
+            var jsonSectionName = (sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TConfig)));
             var bind = new TConfig();
 
             Configuration.GetSection(jsonSectionName).Bind(bind);
@@ -49,7 +49,7 @@ namespace LightestNight.System.Configuration
             var result = Configuration[name];
 
             if (string.IsNullOrWhiteSpace(result))
-                return defaultValue;
+                return defaultValue!;
 
             return (TSetting) Convert.ChangeType(result, typeof(TSetting));
         }
