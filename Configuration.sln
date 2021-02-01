@@ -9,7 +9,7 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration.Tests", "Configuration.Tests\Configuration.Tests.csproj", "{1CD41895-46B8-426F-95DB-B1514ABD8E79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{463DAB1F-96D1-403D-8C96-D69CEB3C63D6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{9AC2E42B-B0B7-4094-A429-A13C52C92C0D}"
 ProjectSection(SolutionItems) = preProject
 	.github\workflows\CI.yml = .github\workflows\CI.yml
 	.github\workflows\Release.yml = .github\workflows\Release.yml
