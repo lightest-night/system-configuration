@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace LightestNight.System.Configuration
+namespace LightestNight.Configuration
 {
     /// <summary>
     /// The name of this config section in the config file

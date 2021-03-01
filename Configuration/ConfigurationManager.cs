@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace LightestNight.System.Configuration
+namespace LightestNight.Configuration
 {
     public class ConfigurationManager
     {

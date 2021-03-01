@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace LightestNight.System.Configuration
+namespace LightestNight.Configuration
 {
     public static class ConfigurationManagerFactory
     {

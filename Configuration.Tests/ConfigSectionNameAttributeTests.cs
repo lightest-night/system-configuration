@@ -1,7 +1,7 @@
 using Shouldly;
 using Xunit;
 
-namespace LightestNight.System.Configuration.Tests
+namespace LightestNight.Configuration.Tests
 {
     public class ConfigSectionNameAttributeTests
     {

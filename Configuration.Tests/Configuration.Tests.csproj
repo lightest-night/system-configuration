@@ -5,9 +5,9 @@
 
         <IsPackable>false</IsPackable>
 
-        <AssemblyName>LightestNight.System.Configuration.Tests</AssemblyName>
+        <AssemblyName>LightestNight.Configuration.Tests</AssemblyName>
 
-        <RootNamespace>LightestNight.System.Configuration.Tests</RootNamespace>
+        <RootNamespace>LightestNight.Configuration.Tests</RootNamespace>
 
         <LangVersion>latest</LangVersion>
 

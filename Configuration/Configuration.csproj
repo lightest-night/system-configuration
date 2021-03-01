@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <AssemblyName>LightestNight.System.Configuration</AssemblyName>
-        <RootNamespace>LightestNight.System.Configuration</RootNamespace>
+        <AssemblyName>LightestNight.Configuration</AssemblyName>
+        <RootNamespace>LightestNight.Configuration</RootNamespace>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <IsPackable>true</IsPackable>
@@ -10,10 +10,10 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>LightestNight.System.Configuration</PackageId>
+        <PackageId>LightestNight.Configuration</PackageId>
         <Authors>James Woodley</Authors>
         <Company>Lightest Night Ltd</Company>
-        <Title>Lightest Night :: System :: Configuration</Title>
+        <Title>Lightest Night :: Configuration</Title>
         <Description>Facilitates binding of Configuration Files into POCO objects. This then allows the config to be used within other classes via dependency injection etc</Description>
         <PackageTags>lightestnight;system;configuration;config</PackageTags>
         <PackageVersion>1.0.0</PackageVersion>
@@ -21,7 +21,7 @@
         <FileVersion>1.0.0</FileVersion>
         <InformationalVersion>1.0.0</InformationalVersion>
         <PackageIcon>icon.jpeg</PackageIcon>
-        <RepositoryUrl>https://github.com/lightest-night/system.configuration</RepositoryUrl>
+        <RepositoryUrl>https://github.com/lightest-night/configuration</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
 
