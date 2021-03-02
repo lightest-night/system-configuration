@@ -15,14 +15,14 @@ namespace LightestNight.Configuration
 
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .AddXmlFile("web.config", true, true)
-                .AddXmlFile("app.config", true, true);
+                .AddJsonFile("appsettings.json", true, false)
+                .AddXmlFile("web.config", true, false)
+                .AddXmlFile("app.config", true, false);
             
             // If any, add the environment files
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
             if (!string.IsNullOrEmpty(environment))
-                builder.AddJsonFile($"appsettings.{environment}.json", true, true);
+                builder.AddJsonFile($"appsettings.{environment}.json", true, false);
             
             // Add any environment variables there may be
             builder.AddEnvironmentVariables();
