@@ -10,14 +10,12 @@ namespace LightestNight.Configuration
 
         public ConfigurationManager(IConfigurationBuilder configurationBuilder)
         {
-            if (!(configurationBuilder is ConfigurationBuilder builder))
+            if (configurationBuilder is not ConfigurationBuilder builder)
                 throw new ArgumentNullException(nameof(configurationBuilder));
 
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, false)
-                .AddXmlFile("web.config", true, false)
-                .AddXmlFile("app.config", true, false);
+                .AddJsonFile("appsettings.json", true, false);
             
             // If any, add the environment files
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
@@ -44,12 +42,12 @@ namespace LightestNight.Configuration
         public string GetConnectionString(string name)
             => Configuration.GetConnectionString(name);
 
-        public TSetting GetSetting<TSetting>(string name, TSetting defaultValue = default)
+        public TSetting? GetSetting<TSetting>(string name, TSetting? defaultValue = default)
         {
             var result = Configuration[name];
 
             if (string.IsNullOrWhiteSpace(result))
-                return defaultValue!;
+                return defaultValue;
 
             return (TSetting) Convert.ChangeType(result, typeof(TSetting));
         }
