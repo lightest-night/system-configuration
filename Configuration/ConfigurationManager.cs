@@ -14,6 +14,8 @@ namespace LightestNight.Configuration
             if (configurationBuilder is not ConfigurationBuilder builder)
                 throw new ArgumentNullException(nameof(configurationBuilder));
 
+            builder.Sources.Clear();
+            
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, false);

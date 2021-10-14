@@ -8,5 +8,11 @@ namespace LightestNight.Configuration
 
         public static ConfigurationManager Build(string[]? args = null) =>
             _configurationManager ??= new ConfigurationManager(new ConfigurationBuilder(), args);
+
+        public static ConfigurationManager UseConfiguration(this IConfigurationBuilder? builder, string[]? args = null)
+        {
+            _configurationManager = new ConfigurationManager(builder ?? new ConfigurationBuilder(), args);
+            return _configurationManager;
+        }
     }
 }

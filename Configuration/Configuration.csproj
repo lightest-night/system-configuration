@@ -40,7 +40,6 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     </ItemGroup>
     
