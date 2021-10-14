@@ -16,8 +16,10 @@ namespace LightestNight.Configuration
 
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, false)
-                .AddCommandLine(args);
+                .AddJsonFile("appsettings.json", true, false);
+
+            if (args is not null)
+                builder.AddCommandLine(args);
 
             // If any, add the environment files
             var commandLineParser = builder.Build();
