@@ -6,7 +6,7 @@ namespace LightestNight.Configuration
     {
         private static ConfigurationManager? _configurationManager;
 
-        public static ConfigurationManager Build() =>
-            _configurationManager ??= new ConfigurationManager(new ConfigurationBuilder());
+        public static ConfigurationManager Build(string[]? args = null) =>
+            _configurationManager ??= new ConfigurationManager(new ConfigurationBuilder(), args);
     }
 }
