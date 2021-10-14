@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
@@ -8,17 +9,26 @@ namespace LightestNight.Configuration
     {
         public IConfigurationRoot Configuration { get; }
 
-        public ConfigurationManager(IConfigurationBuilder configurationBuilder)
+        public ConfigurationManager(IConfigurationBuilder configurationBuilder, string[]? args = null)
         {
             if (configurationBuilder is not ConfigurationBuilder builder)
                 throw new ArgumentNullException(nameof(configurationBuilder));
 
             builder
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, false);
-            
+                .AddJsonFile("appsettings.json", true, false)
+                .AddCommandLine(args);
+
             // If any, add the environment files
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+            var commandLineParser = builder.Build();
+            var environment = commandLineParser.GetValue<string?>("environment", null)
+                              ?? commandLineParser.GetValue<string?>("Environment", null)
+                              ?? commandLineParser.GetValue<string?>("env", null)
+                              ?? commandLineParser.GetValue<string?>("Env", null)
+                              ?? commandLineParser.GetValue<string?>("e", null)
+                              ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+                              ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
+            
             if (!string.IsNullOrEmpty(environment))
                 builder.AddJsonFile($"appsettings.{environment}.json", true, false);
             
