@@ -14,7 +14,7 @@ namespace LightestNight.Configuration.Tests
             var serviceCollection = new ServiceCollection();
             
             // Act
-            serviceCollection.UseLightestNightConfiguration();
+            serviceCollection.AddLightestNightConfiguration();
             
             // Assert
             var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -35,7 +35,7 @@ namespace LightestNight.Configuration.Tests
             var configurationBuilder = new ConfigurationBuilder();
             
             // Act
-            serviceCollection.UseLightestNightConfiguration(configurationBuilder);
+            serviceCollection.AddLightestNightConfiguration(configurationBuilder);
             
             // Assert
             var serviceProvider = serviceCollection.BuildServiceProvider();
