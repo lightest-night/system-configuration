@@ -11,7 +11,8 @@ namespace LightestNight.Configuration
         public static ConfigurationManager GetConfigurationManager(string[]? args = null)
             => new(new ConfigurationBuilder(), args);
 
-        public ConfigurationManager(IConfigurationBuilder configurationBuilder, string[]? args = null)
+        public ConfigurationManager(IConfigurationBuilder configurationBuilder, string[]? args = null,
+            Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
         {
             if (configurationBuilder is not ConfigurationBuilder builder)
                 throw new ArgumentNullException(nameof(configurationBuilder));
@@ -30,6 +31,9 @@ namespace LightestNight.Configuration
 
             if (args is not null)
                 builder.AddCommandLine(args);
+
+            if (customizer is not null)
+                builder = customizer(builder);
 
             Configuration = builder.Build();
         }
