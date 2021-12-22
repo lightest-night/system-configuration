@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LightestNight.Configuration
@@ -6,10 +7,11 @@ namespace LightestNight.Configuration
     public static class ExtendsServiceCollection
     {
         public static IServiceCollection AddLightestNightConfiguration(this IServiceCollection services,
-            IConfigurationBuilder? builder = null, string[]? args = null)
+            IConfigurationBuilder? builder = null, string[]? args = null, Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
             => services.AddSingleton<IConfigurationManager>(serviceProvider =>
                 new ConfigurationManager(
                     builder ?? serviceProvider.GetService<IConfigurationBuilder>() ?? new ConfigurationBuilder(),
-                    args));
+                    args,
+                    customizer));
     }
 }
