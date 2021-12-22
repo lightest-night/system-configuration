@@ -8,8 +8,9 @@ namespace LightestNight.Configuration
     {
         public IConfigurationRoot Configuration { get; }
 
-        public static ConfigurationManager GetConfigurationManager(string[]? args = null)
-            => new(new ConfigurationBuilder(), args);
+        public static ConfigurationManager GetConfigurationManager(string[]? args = null,
+            Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
+            => new(new ConfigurationBuilder(), args, customizer);
 
         public ConfigurationManager(IConfigurationBuilder configurationBuilder, string[]? args = null,
             Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
