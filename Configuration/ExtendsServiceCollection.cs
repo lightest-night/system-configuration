@@ -9,7 +9,7 @@ namespace LightestNight.Configuration
     {
         public static IServiceCollection AddLightestNightConfiguration(this IServiceCollection services,
                 IConfigurationBuilder? builder = null, string[]? args = null,
-                Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
+                Func<IConfigurationBuilder, ConfigurationBuilder>? customizer = null)
         {
             services.TryAddSingleton<IConfigurationManager>(serviceProvider =>
                 new ConfigurationManager(

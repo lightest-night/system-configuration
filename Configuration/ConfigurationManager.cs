@@ -9,23 +9,27 @@ namespace LightestNight.Configuration
         public IConfigurationRoot Configuration { get; }
 
         public static ConfigurationManager GetConfigurationManager(string[]? args = null,
-            Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
+            Func<IConfigurationBuilder, ConfigurationBuilder>? customizer = null)
             => new(new ConfigurationBuilder(), args, customizer);
 
         public ConfigurationManager(IConfigurationBuilder configurationBuilder, string[]? args = null,
-            Func<ConfigurationBuilder, ConfigurationBuilder>? customizer = null)
+            Func<IConfigurationBuilder, ConfigurationBuilder>? customizer = null)
         {
             if (configurationBuilder is not ConfigurationBuilder builder)
                 throw new ArgumentNullException(nameof(configurationBuilder));
 
+            Configuration = ConfigureBuilder(builder, args, customizer);
+        }
+
+        public static IConfigurationRoot ConfigureBuilder(IConfigurationBuilder builder, string[]? args = null,
+            Func<IConfigurationBuilder, ConfigurationBuilder>? customizer = null)
+        {
             builder.Sources.Clear();
 
-            builder
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, false);
+            builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", true, false);
 
             var environment = GetEnvironmentFromCommandLine(args) ?? GetEnvironmentFromEnvironmentVariable();
-            if (!string.IsNullOrEmpty(environment))
+            if (!string.IsNullOrWhiteSpace(environment))
                 builder.AddJsonFile($"appsettings.{environment}.json", true, false);
 
             builder.AddEnvironmentVariables();
@@ -36,7 +40,7 @@ namespace LightestNight.Configuration
             if (customizer is not null)
                 builder = customizer(builder);
 
-            Configuration = builder.Build();
+            return builder.Build();
         }
 
         public TConfig Bind<TConfig>(string? sectionName = null) where TConfig : class, new()
