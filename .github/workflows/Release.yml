@@ -43,7 +43,7 @@ jobs:
       - name: Package
         run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ needs.build.outputs.packageVersion }}
       - name: Store nuget package as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: packages
           path: ./packages/*.nupkg
