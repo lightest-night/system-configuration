@@ -31,6 +31,7 @@ jobs:
         run: dotnet test -c Release --no-build
 
   package:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Package ready for deploy
     needs: build
     runs-on: ubuntu-latest
@@ -49,6 +50,7 @@ jobs:
           retention-days: 1
 
   deploy:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Deploy to Nuget
     needs: package
     runs-on: ubuntu-latest
