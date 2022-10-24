@@ -15,40 +15,42 @@ jobs:
       packageVersion: ${{ steps.gitversion.outputs.nuGetVersion }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Fetch all history for all tags and branches
         run: git fetch --prune --unshallow
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.8
+        uses: gittools/actions/gitversion/setup@v0.9.14
         with:
           versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.8
+        uses: gittools/actions/gitversion/execute@v0.9.14
       - name: Build
         run: dotnet build -c Release
       - name: Unit Test
         run: dotnet test -c Release --no-build
 
   package:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Package ready for deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Package
         run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ needs.build.outputs.packageVersion }}
       - name: Store nuget package as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: packages
           path: ./packages/*.nupkg
           retention-days: 1
 
   deploy:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Deploy to Nuget
     needs: package
     runs-on: ubuntu-latest
