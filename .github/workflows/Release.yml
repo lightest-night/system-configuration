@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download package
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: packages
       - name: Push to Nuget
