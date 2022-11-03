@@ -1,3 +1,5 @@
+// ReSharper disable ClassNeverInstantiated.Global
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
@@ -14,10 +16,10 @@ public class ConfigurationCollectionFixture : ICollectionFixture<ConfigurationFi
     // to be the place to apply [CollectionDefinition] and all the
     // ICollectionFixture<> interfaces.
 }
+
 public class ConfigurationFixture : IDisposable
 {
-    private readonly ConfigurationBuilder _configurationBuilder = new();
-    public ConfigurationBuilder ConfigurationBuilder => _configurationBuilder;
+    public ConfigurationBuilder ConfigurationBuilder { get; } = new();
 
     private readonly HostBuilderContext _hostingContext = new(new Dictionary<object, object>())
     {
