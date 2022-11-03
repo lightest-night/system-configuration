@@ -6,9 +6,12 @@ namespace LightestNight.Configuration;
 
 public static class ConfigBuilder
 {
-    public static void Build(HostBuilderContext hostingContext, IConfigurationBuilder config, string[]? args = null)
+    public static void Build(HostBuilderContext hostingContext, IConfigurationBuilder config, string[]? args = null,
+        bool clearSources = false)
     {
-        config.Sources.Clear();
+        if (clearSources)
+            config.Sources.Clear();
+
         var environment = hostingContext.HostingEnvironment.EnvironmentName;
 
         config.SetBasePath(Directory.GetCurrentDirectory())
