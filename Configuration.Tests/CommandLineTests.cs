@@ -1,11 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace LightestNight.Configuration.Tests;
 
+[Collection(nameof(ConfigurationCollectionFixture))]
 public class CommandLineTests
 {
+    private readonly ConfigurationFixture _fixture;
+
+    public CommandLineTests(ConfigurationFixture fixture)
+    {
+        _fixture = fixture;
+    }
+    
     [Theory]
     [InlineData("environment", "Development")]
     [InlineData("Environment", "Development")]
@@ -16,12 +23,13 @@ public class CommandLineTests
     {
         // Arrange
         var commandLine = new[]{$"--{key}={value}"};
-            
+        _fixture.BuildConfig(commandLine);
+        var configuration = _fixture.ConfigurationBuilder.Build();
+
         // Act
-        var configurationManager = new ConfigurationManager(new ConfigurationBuilder(), commandLine);
-            
+        var result = configuration.GetSetting<string>(key);
+
         // Assert
-        var result = configurationManager.GetSetting<string>(key);
         result.ShouldBe(value);
     }
 }
