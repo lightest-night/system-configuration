@@ -25,4 +25,10 @@ public static class ExtendsConfiguration
 
         return (TSetting)Convert.ChangeType(result, typeof(TSetting));
     }
+
+    public static void SetConfig<TConfig>(this IConfiguration configuration, TConfig bind, string? sectionName = null)
+    {
+        var jsonSectionName = sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TConfig));
+        ((IConfigurationRoot)configuration).GetSection(jsonSectionName).Bind(bind);
+    }
 }
