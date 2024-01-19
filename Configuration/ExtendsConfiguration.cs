@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace LightestNight.Configuration;
 
