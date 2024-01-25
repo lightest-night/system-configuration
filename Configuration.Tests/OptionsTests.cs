@@ -28,6 +28,25 @@ public class OptionsTests
         var config = _services.BuildServiceProvider().GetRequiredService<IOptions<Options>>();
         config.Value.ConfigFound.ShouldBeTrue();
     }
+
+    [Fact]
+    public void Should_Bind_Config_With_Options()
+    {
+        // Arrange
+        var functionFired = false;
+        
+        // Act
+        _services.BindOptions<Options>((options, configuration) =>
+        {
+            configuration.SetConfig(options);
+            functionFired = true;
+        });
+        
+        // Assert
+        var config = _services.BuildServiceProvider().GetRequiredService<IOptions<Options>>();
+        config.Value.ConfigFound.ShouldBeTrue();
+        functionFired.ShouldBe(true);
+    }
 }
 
 internal record Options
