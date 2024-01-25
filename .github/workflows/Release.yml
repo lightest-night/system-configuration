@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build and test
+    name: Build, Test, Deploy
     runs-on: ubuntu-latest
     outputs:
       packageVersion: ${{ steps.gitversion.outputs.nuGetVersion }}
@@ -24,40 +24,13 @@ jobs:
           versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.10.2
+        uses: gittools/actions/gitversion/execute@v0
       - name: Build
         run: dotnet build -c Release
       - name: Unit Test
         run: dotnet test -c Release --no-build
-
-  package:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Package ready for deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Package
-        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ needs.build.outputs.packageVersion }}
-      - name: Store nuget package as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: packages
-          path: ./packages/*.nupkg
-          retention-days: 1
-
-  deploy:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Deploy to Nuget
-    needs: package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download package
-        uses: actions/download-artifact@v3
-        with:
-          name: packages
+        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }}
       - name: Push to Nuget
-        run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
+        run: dotnet nuget push ./packages/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
+      
