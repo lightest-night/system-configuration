@@ -34,15 +34,4 @@ public static class ExtendsConfiguration
         var jsonSectionName = sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TConfig));
         ((IConfigurationRoot)configuration).GetSection(jsonSectionName).Bind(bind);
     }
-
-    public static OptionsBuilder<TOptions> ConfigureBoundOptions<TOptions>(this IServiceCollection services,
-        string? sectionName = null)
-        where TOptions : class
-    {
-        var jsonSectionName = sectionName ?? ConfigSectionNameAttribute.ReadFrom(typeof(TOptions));
-
-        return services.AddOptions<TOptions>()
-            .Configure<IConfiguration>((bind, configuration) => configuration.SetConfig(bind, jsonSectionName))
-            .BindConfiguration(jsonSectionName);
-    }
 }

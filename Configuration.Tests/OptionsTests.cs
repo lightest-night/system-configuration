@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -47,10 +48,23 @@ public class OptionsTests
         config.Value.ConfigFound.ShouldBeTrue();
         functionFired.ShouldBe(true);
     }
+
+    [Fact]
+    public void Should_Bind_Dictionary()
+    {
+        // Act
+        _services.BindOptions<Options>();
+        
+        // Assert
+        var config = _services.BuildServiceProvider().GetRequiredService<IOptions<Options>>();
+        config.Value.Dictionary.ShouldNotBeEmpty();
+    }
 }
 
 internal record Options
 {
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    public bool ConfigFound { get; set; }
+    public bool ConfigFound { get; init; }
+
+    public Dictionary<string, string> Dictionary { get; init; } = [];
 }
