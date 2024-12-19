@@ -57,7 +57,7 @@ public class OptionsTests
         
         // Assert
         var config = _services.BuildServiceProvider().GetRequiredService<IOptions<Options>>();
-        config.Value.Dictionary.ShouldNotBeEmpty();
+        config.Value.Fields.ShouldNotBeEmpty();
     }
 }
 
@@ -66,5 +66,5 @@ internal record Options
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public bool ConfigFound { get; init; }
 
-    public Dictionary<string, string> Dictionary { get; init; } = [];
+    public Dictionary<string, string> Fields { get; init; } = [];
 }
