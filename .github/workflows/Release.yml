@@ -34,7 +34,7 @@ jobs:
       - name: Unit Test
         run: dotnet test -c Release --no-build
       - name: Package
-        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }}
+        run: dotnet pack -c Release -o ./packages -p:PackageVersion=${{ steps.gitversion.outputs.FullSemVer }}
       - name: Push to Nuget
         run: dotnet nuget push ./packages/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_KEY }}
       
